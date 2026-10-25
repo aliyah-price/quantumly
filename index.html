@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quantumly — The Future of Physics Is for Everyone</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#0D1017;
+    --panel:#151922;
+    --panel-alt:#1B202B;
+    --border:#262C38;
+    --text:#E7E9ED;
+    --muted:#8992A6;
+    --blue:#6CA0F6;
+    --purple:#A78BFA;
+    --purple-deep:#7C5CFC;
+    --orange:#F2A65A;
+    --radius:10px;
+    --maxw:1120px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+  img,svg{display:block;}
+
+  header.site-nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(13,16,23,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:var(--maxw);margin:0 auto;padding:16px 24px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:700;font-size:19px;letter-spacing:-0.02em;
+  }
+  nav.links{display:flex;gap:28px;align-items:center;}
+  nav.links a{
+    font-size:14.5px;color:var(--muted);font-weight:500;
+    transition:color .15s ease;
+  }
+  nav.links a:hover{color:var(--text);}
+  .btn{
+    font-size:14.5px;font-weight:600;
+    padding:9px 18px;border-radius:7px;
+    border:1px solid transparent;
+    cursor:pointer;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .btn-primary{background:var(--purple);color:#161022;}
+  .btn-primary:hover{background:#b9a2fc;}
+  .btn-ghost{border-color:var(--border);color:var(--text);}
+  .btn-ghost:hover{border-color:var(--muted);}
+  .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;}
+
+  .hero{padding:76px 0 88px;}
+  .hero-grid{
+    display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center;
+  }
+  .hero h1{
+    font-size:44px;line-height:1.14;font-weight:800;letter-spacing:-0.02em;
+    margin:0 0 20px;
+  }
+  .cycle-word{
+    color:var(--purple);
+    display:inline-block;
+    transition:opacity .28s ease;
+  }
+  .hero p.lede{
+    font-size:17px;color:var(--muted);max-width:46ch;margin:0 0 30px;
+  }
+  .cta-row{display:flex;gap:12px;margin-bottom:34px;flex-wrap:wrap;}
+  .cta-row .btn{padding:12px 22px;font-size:15px;}
+  .tagline{
+    font-family:'JetBrains Mono',monospace;
+    font-size:14px;color:var(--purple);
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .tagline::before{
+    content:"";width:7px;height:7px;border-radius:50%;
+    background:var(--purple);display:inline-block;
+  }
+
+  .wave-window{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:0 20px 60px -20px rgba(0,0,0,.6);
+  }
+  .browser-bar{
+    min-height:48px;
+    display:flex;align-items:center;gap:8px;
+    padding:10px 14px;
+    background:var(--panel-alt);
+    border-bottom:1px solid var(--border);
+  }
+  .browser-dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto;}
+  .browser-dot:nth-child(1){background:#e5645a;}
+  .browser-dot:nth-child(2){background:#e6c249;}
+  .browser-dot:nth-child(3){background:#57c25a;}
+  .browser-address{
+    margin-left:8px;flex:1;min-width:0;max-width:360px;
+    padding:6px 12px;border:1px solid var(--border);border-radius:6px;
+    background:var(--bg);color:var(--muted);
+    font:12px 'JetBrains Mono',monospace;text-align:center;
+  }
+  .wave-stage{padding:10px 12px 5px;background:radial-gradient(ellipse at 52% 48%,#1b2030 0%,#151922 72%);}
+  .double-slit-art{display:block;width:100%;height:auto;overflow:visible;}
+  .wavefront{fill:none;stroke-width:1.7;vector-effect:non-scaling-stroke;opacity:0;transform-box:fill-box;transform-origin:center;animation:wave-spread 3.4s linear infinite;}
+  .incoming{stroke:#6ca0f6;}
+  .outgoing{stroke:#a78bfa;}
+  .ripple-2{animation-delay:-.85s;}
+  .ripple-3{animation-delay:-1.7s;}
+  .ripple-4{animation-delay:-2.55s;}
+  .ripple-5{animation-delay:-.45s;}
+  .slit-source{fill:#d8c9ff;filter:drop-shadow(0 0 5px #a78bfa);}
+  .barrier{fill:#343b4b;}
+  .detector{fill:#222836;stroke:#42495a;stroke-width:1;}
+  .fringe{fill:#c7b5ff;animation:fringe-glow 2.6s ease-in-out infinite alternate;}
+  .fringe:nth-of-type(2n){animation-delay:-1.1s;}
+  .diagram-label{fill:#8992a6;font:10px 'JetBrains Mono',monospace;letter-spacing:1px;}
+  .wave-caption{padding:0 18px 15px;color:var(--muted);font-size:12px;text-align:center;}
+  @keyframes wave-spread{0%{transform:scale(.12);opacity:.75;}78%{opacity:.34;}100%{transform:scale(24);opacity:0;}}
+  @keyframes fringe-glow{from{opacity:.35;}to{opacity:.95;}}
+
+  section{padding:72px 0;border-top:1px solid var(--border);}
+  .section-head{margin-bottom:36px;max-width:60ch;}
+  .section-head h2{
+    font-size:28px;font-weight:800;letter-spacing:-0.01em;margin:0 0 10px;
+  }
+  .section-head p{color:var(--muted);font-size:15.5px;margin:0;}
+
+  .tree{
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .tree-root{
+    font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--muted);
+    padding:12px 18px;background:var(--panel-alt);border-bottom:1px solid var(--border);
+  }
+  .course-row{
+    display:flex;align-items:center;gap:16px;
+    padding:16px 20px 16px 34px;
+    border-bottom:1px solid var(--border);
+    transition:background .12s ease;
+  }
+  .course-row:last-child{border-bottom:none;}
+  .course-row:hover{background:var(--panel-alt);}
+  .course-row:focus-visible{outline:2px solid var(--purple);outline-offset:-3px;}
+  .course-row .idx{
+    font-family:'JetBrains Mono',monospace;color:var(--orange);font-size:12.5px;
+    width:34px;flex:0 0 auto;
+  }
+  .course-row .name{font-weight:600;font-size:15px;flex:0 0 auto;min-width:260px;}
+  .course-row .desc{color:var(--muted);font-size:13.5px;}
+  .course-row .arrow{margin-left:auto;color:var(--muted);font-size:15px;}
+
+  .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch;}
+  @media (max-width:760px){.menu-grid{grid-template-columns:1fr;}}
+  .terminal{
+    background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .terminal-head{
+    padding:10px 16px;background:var(--panel-alt);border-bottom:1px solid var(--border);
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--muted);
+  }
+  .terminal-body{padding:6px 4px;}
+  .term-line{
+    display:flex;gap:10px;align-items:baseline;
+    padding:9px 16px;font-family:'JetBrains Mono',monospace;font-size:13px;
+    border-radius:6px;
+  }
+  .term-line:hover{background:var(--panel-alt);}
+  .term-line .prompt{color:var(--purple);flex:0 0 auto;}
+  .term-line a{color:var(--text);}
+  .term-line a:hover{color:var(--blue);}
+
+  .newsletter-card{
+    background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
+    padding:28px 26px;display:flex;flex-direction:column;justify-content:center;
+  }
+  .newsletter-card h3{margin:0 0 8px;font-size:17px;font-weight:700;}
+  .newsletter-card p{margin:0 0 18px;color:var(--muted);font-size:14px;}
+  .newsletter-form{display:flex;gap:10px;flex-wrap:wrap;}
+  .newsletter-form input{
+    flex:1;min-width:180px;
+    background:var(--panel-alt);border:1px solid var(--border);border-radius:7px;
+    padding:11px 14px;color:var(--text);font-size:14px;font-family:'Inter',sans-serif;
+  }
+  .newsletter-form input:focus{outline:2px solid var(--purple);outline-offset:1px;}
+  .newsletter-note{margin-top:12px;font-size:12.5px;color:#5C6577;}
+
+  .faq-item{border-bottom:1px solid var(--border);}
+  .faq-item:first-child{border-top:1px solid var(--border);}
+  .faq-q{
+    width:100%;text-align:left;background:none;border:none;color:var(--text);
+    padding:20px 4px;font-size:15.5px;font-weight:600;cursor:pointer;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .faq-q .plus{
+    font-family:'JetBrains Mono',monospace;color:var(--purple);font-size:18px;
+    transition:transform .18s ease;flex:0 0 auto;
+  }
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{
+    max-height:0;overflow:hidden;transition:max-height .22s ease;
+  }
+  .faq-a-inner{
+    padding:0 4px 22px;color:var(--muted);font-size:14.5px;max-width:68ch;
+  }
+  .faq-a-inner .out{
+    font-family:'JetBrains Mono',monospace;color:var(--purple);font-size:12px;
+    display:block;margin-bottom:6px;
+  }
+
+  footer{border-top:1px solid var(--border);padding:36px 0 30px;}
+  .footer-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;}
+  .footer-links{display:flex;gap:22px;flex-wrap:wrap;}
+  .footer-links a{color:var(--muted);font-size:13.5px;}
+  .footer-links a:hover{color:var(--text);}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    nav.links{display:none;}
+    .nav-toggle{display:block;}
+  }
+  @media (max-width:600px){
+    .hero h1{font-size:32px;}
+    section{padding:52px 0;}
+    .course-row{flex-wrap:wrap;padding-left:20px;}
+    .course-row .arrow{display:none;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .cycle-word{transition:none;}
+    .wavefront,.fringe{animation:none;opacity:.5;}
+  }
+</style>
+</head>
+<body>
+<header class="site-nav">
+<div class="nav-inner">
+<a class="logo" href="#top">quantumly</a>
+<nav class="links">
+<a href="#courses">Courses</a>
+<a href="#modules">Learning modules</a>
+<a href="#newsletter">Newsletter</a>
+</nav>
+<a class="btn btn-primary" href="#courses">Start learning</a>
+<button aria-label="Menu" class="nav-toggle">☰</button>
+</div>
+</header>
+<main id="top">
+<section class="hero" style="border-top:none;">
+<div class="wrap hero-grid">
+<div>
+<h1>The future of <span class="cycle-word" id="cycleWord">physics</span> is for everyone.</h1>
+<p class="lede">Two full courses — quantum mechanics and quantum computing — plus smaller learning modules. All at no cost.</p>
+<div class="cta-row">
+<a class="btn btn-primary" href="#courses">Browse the courses</a>
+<a class="btn btn-ghost" href="#modules">Learning modules</a>
+</div>
+</div>
+<div class="wave-window">
+<div class="browser-bar" aria-label="Browser window">
+<span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+<span class="browser-address">quantumly.org</span>
+</div>
+<div class="wave-stage">
+<svg class="double-slit-art" viewBox="0 0 700 330" role="img" aria-labelledby="slitTitle slitDescription">
+<title id="slitTitle">Double-slit experiment</title>
+<desc id="slitDescription">Circular wavefronts spread from a source, pass through two narrow openings, overlap, and form bright interference fringes on a detector.</desc>
+<defs>
+<clipPath id="beforeBarrier"><rect x="0" y="35" width="263" height="255"/></clipPath>
+<clipPath id="afterBarrier"><rect x="263" y="35" width="344" height="255"/></clipPath>
+</defs>
+<g clip-path="url(#beforeBarrier)">
+<circle class="wavefront incoming" cx="63" cy="162" r="16"/>
+<circle class="wavefront incoming ripple-2" cx="63" cy="162" r="16"/>
+<circle class="wavefront incoming ripple-3" cx="63" cy="162" r="16"/>
+<circle class="wavefront incoming ripple-4" cx="63" cy="162" r="16"/>
+</g>
+<g clip-path="url(#afterBarrier)">
+<circle class="wavefront outgoing" cx="263" cy="134" r="15"/>
+<circle class="wavefront outgoing ripple-2" cx="263" cy="134" r="15"/>
+<circle class="wavefront outgoing ripple-3" cx="263" cy="134" r="15"/>
+<circle class="wavefront outgoing ripple-4" cx="263" cy="134" r="15"/>
+<circle class="wavefront outgoing ripple-5" cx="263" cy="134" r="15"/>
+<circle class="wavefront outgoing" cx="263" cy="198" r="15" style="animation-delay:-.35s"/>
+<circle class="wavefront outgoing ripple-2" cx="263" cy="198" r="15"/>
+<circle class="wavefront outgoing ripple-3" cx="263" cy="198" r="15"/>
+<circle class="wavefront outgoing ripple-4" cx="263" cy="198" r="15"/>
+<circle class="wavefront outgoing ripple-5" cx="263" cy="198" r="15"/>
+</g>
+<circle cx="63" cy="162" r="5" fill="#6ca0f6"/>
+<circle cx="63" cy="162" r="12" fill="none" stroke="#6ca0f6" stroke-opacity=".5"/>
+<rect class="barrier" x="258" y="42" width="10" height="84" rx="2"/>
+<rect class="barrier" x="258" y="142" width="10" height="48" rx="2"/>
+<rect class="barrier" x="258" y="206" width="10" height="84" rx="2"/>
+<circle class="slit-source" cx="263" cy="134" r="3"/>
+<circle class="slit-source" cx="263" cy="198" r="3"/>
+<rect class="detector" x="612" y="54" width="24" height="220" rx="5"/>
+<g>
+<rect class="fringe" x="619" y="72" width="10" height="5" rx="2" opacity=".28"/>
+<rect class="fringe" x="616" y="91" width="16" height="5" rx="2" opacity=".42"/>
+<rect class="fringe" x="618" y="110" width="12" height="5" rx="2" opacity=".62"/>
+<rect class="fringe" x="615" y="129" width="18" height="5" rx="2" opacity=".86"/>
+<rect class="fringe" x="616" y="148" width="16" height="5" rx="2" opacity=".55"/>
+<rect class="fringe" x="614" y="167" width="20" height="5" rx="2" opacity=".95"/>
+<rect class="fringe" x="616" y="186" width="16" height="5" rx="2" opacity=".56"/>
+<rect class="fringe" x="615" y="205" width="18" height="5" rx="2" opacity=".83"/>
+<rect class="fringe" x="618" y="224" width="12" height="5" rx="2" opacity=".58"/>
+<rect class="fringe" x="616" y="243" width="16" height="5" rx="2" opacity=".36"/>
+<rect class="fringe" x="619" y="262" width="10" height="5" rx="2" opacity=".24"/>
+</g>
+<text class="diagram-label" x="63" y="310" text-anchor="middle">SOURCE</text>
+<text class="diagram-label" x="263" y="310" text-anchor="middle">DOUBLE SLIT</text>
+<text class="diagram-label" x="624" y="310" text-anchor="middle">DETECTOR</text>
+<path d="M86 301 H235 M290 301 H596" fill="none" stroke="#343b4b" stroke-width="1"/>
+</svg>
+</div>
+<div class="wave-caption">Wavefronts pass through both slits and overlap to form an interference pattern.</div>
+</div>
+</div>
+</section>
+<section id="courses">
+<div class="wrap">
+<div class="section-head">
+<h2>Two courses, start to finish</h2>
+<p>Every lesson in both courses is free with an account. No unit is locked behind a paywall.</p>
+</div>
+<div class="tree">
+<div class="tree-root">courses/</div>
+<a aria-label="Open Quantum Mechanics Made Simple course" class="course-row" href="quantum-mechanics.html"><span class="idx">[0]</span><span class="name">Quantum Mechanics Made Simple</span><span class="desc">An approachable intro to quantum mechanics.</span><span aria-hidden="true" class="arrow">→</span></a>
+<a aria-label="Quantum Computing 101 coming soon" class="course-row" href="quantum-coming-soon.html"><span class="idx">[1]</span><span class="name">Quantum Computing 101</span><span class="desc">Learn the basics of quantum computing.</span><span class="arrow">→</span></a>
+</div>
+</div>
+</section>
+<section id="modules">
+<div class="wrap">
+<div class="section-head">
+<h2>Learning modules and updates</h2>
+<p>Shorter, focused modules for going deeper on one idea at a time — plus a newsletter for what's new.</p>
+</div>
+<div class="menu-grid">
+<div class="terminal">
+<div class="terminal-head">learning-modules</div>
+<div class="terminal-body">
+<div class="term-line"><span class="prompt">$</span><a href="dashboard.html?unit=8&amp;lesson=1">open wave-particle-duality</a></div>
+<div class="term-line"><span class="prompt">$</span><a href="dashboard.html?unit=8&amp;lesson=7">open superposition-explained</a></div>
+<div class="term-line"><span class="prompt">$</span><a href="quantum-coming-soon.html#notify">open qubits-vs-bits</a></div>
+<div class="term-line"><span class="prompt">$</span><a href="dashboard.html?unit=3&amp;lesson=3">open entanglement-basics</a></div>
+<div class="term-line"><span class="prompt">$</span><a href="quantum-coming-soon.html#notify">open intro-to-quantum-algorithms</a></div>
+</div>
+</div>
+<div class="newsletter-card" id="newsletter">
+<h3>Get new modules in your inbox</h3>
+<p>One email whenever a new course or module goes live. No spam, unsubscribe anytime.</p>
+<form class="newsletter-form" id="newsletterForm">
+<input aria-label="Email address" placeholder="you@email.com" required="" type="email"/>
+<button class="btn btn-primary" type="submit">Subscribe</button>
+</form>
+<p class="newsletter-note" id="newsletterStatus" role="status">Signup preview only; email updates are not connected yet.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="faq">
+<div class="wrap">
+<div class="section-head">
+<h2>Common questions</h2>
+</div>
+<div class="faq-list">
+<div class="faq-item">
+<button class="faq-q">Who made Quantumly?<span class="plus">+</span></button>
+<div class="faq-a"><div class="faq-a-inner">
+
+            Quantumly was made by aliyah-price, a high schooler passionate about quantum physics.
+          </div></div>
+</div>
+<div class="faq-item">
+<button class="faq-q">How much does Quantumly cost?<span class="plus">+</span></button>
+<div class="faq-a"><div class="faq-a-inner">
+
+            It's completely free! Every course and module is free with a free account, no credit card required.
+          </div></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer>
+<div class="wrap">
+<div class="footer-top">
+<a class="logo" href="#top">quantumly</a>
+<div class="footer-links">
+<a href="#courses">Courses</a>
+<a href="#modules">Learning modules</a>
+<a href="#newsletter">Newsletter</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+const faqButtons = document.querySelectorAll('.faq-q');
+faqButtons.forEach((questionButton) => {
+  questionButton.addEventListener('click', () => {
+    const faqEntry = questionButton.closest('.faq-item');
+    const answerPanel = faqEntry.querySelector('.faq-a');
+    const isExpanded = faqEntry.classList.contains('open');
+
+    document.querySelectorAll('.faq-item.open').forEach((expandedEntry) => {
+      if (expandedEntry !== faqEntry) {
+        expandedEntry.classList.remove('open');
+        expandedEntry.querySelector('.faq-a').style.maxHeight = '';
+      }
+    });
+
+    faqEntry.classList.toggle('open', !isExpanded);
+    answerPanel.style.maxHeight = isExpanded ? '' : `${answerPanel.scrollHeight}px`;
+  });
+});
+
+const menuButton = document.querySelector('.nav-toggle');
+const siteLinks = document.querySelector('nav.links');
+if (menuButton && siteLinks) {
+  menuButton.addEventListener('click', () => {
+    const menuIsOpen = siteLinks.style.display === 'flex';
+    siteLinks.style.display = menuIsOpen ? 'none' : 'flex';
+    Object.assign(siteLinks.style, {
+      flexDirection: 'column', position: 'absolute', top: '58px', right: '24px',
+      background: '#151922', border: '1px solid #262C38', borderRadius: '10px',
+      padding: '14px 20px', gap: '14px'
+    });
+    menuButton.setAttribute('aria-expanded', String(!menuIsOpen));
+  });
+}
+
+const newsletterForm = document.getElementById('newsletterForm');
+const newsletterStatus = document.getElementById('newsletterStatus');
+if (newsletterForm && newsletterStatus) {
+  newsletterForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    newsletterStatus.textContent = 'Thanks for your interest. This signup is a preview and does not send email yet.';
+  });
+}
+
+const headlineWord = document.getElementById('cycleWord');
+const rotatingHeadlines = ['physics', 'computing', 'science'];
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (headlineWord && !reduceMotion) {
+  let headlineIndex = 0;
+  window.setInterval(() => {
+    headlineWord.style.opacity = '0';
+    window.setTimeout(() => {
+      headlineIndex = (headlineIndex + 1) % rotatingHeadlines.length;
+      headlineWord.textContent = rotatingHeadlines[headlineIndex];
+      headlineWord.style.opacity = '1';
+    }, 280);
+  }, 2200);
+}
+</script>
+</body>
+</html>
